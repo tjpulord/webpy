@@ -1,0 +1,73 @@
+﻿$def with (param)
+$var title: $param.title
+
+
+
+$if param.error_msg:
+    <div class="bs-docs-example">
+        <div class="alert alert-error">
+            <strong>$:param.error_msg</strong>
+        </div>
+    </div>
+
+$if len(param.dish_list) == 1:
+  <div class="span8 offset2">
+  <form class="bs-docs-example form-horizontal" action="/edit/$param.dish_list[0].nid" method="POST">
+    <div class="control-group">
+      <label for="dish_name" class="control-label">菜名</label>
+      <div class="controls">
+        <input type="text" name="dish_name" value=$param.dish_list[0].dish_name />
+      </div>
+    </div>
+    <div class="control-group">
+      <label for="price" class="control-label">菜价</label>
+      <div class="controls">
+        <input type="number" name="price" value=$param.dish_list[0].price />
+      </div>
+    </div>
+    <div class="control-group">
+      <label for="make_time" class="control-label">时间</label>
+      <div class="controls">
+        <input type="number" name="make_time" value=$param.dish_list[0].make_time />
+      </div>
+    </div>
+    <div class="control-group">
+      <label for="image" class="control-label">图片</label>
+      <img src="/static/img/dish/$param.dish_list[0].image" class="img-circle" width="200" height="200">
+      <div class="controls">
+        <input type="file" name="image" size="1" />
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        $for s in param.menu_sort_list:
+          <label class="checkbox inline">
+            $if s[1]&param.dish_list[0].category_id:
+              <input type="checkbox" name="category_$s[1]" value=$s[1] checked >$s[0]
+            $else:
+              <input type="checkbox" name="category_$s[1]" value=$s[1] > $s[0]
+          </label>
+        <label class="checkbox"></label>
+        <button class="btn" type="submit">提交</button>
+      </div>
+    </div>
+  </form>
+  </div>
+$else:
+  <div class="span10">
+    <ul class="thumbnails">
+    $for r in param.dish_list:
+      <div class="span3">
+        <div class="thumbnails offset0">
+          <img src="/static/img/dish/$r.image" class="img-circle" width="200" height="200">
+          <div class="caption">
+            <h5 class="offset2">$r.dish_name</h5>
+            <div class="span3 offset2">
+              <div class="span3"><a href="edit/$r.uid"><i class="icon-plus"></i></a>Edit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ul>
+  </div>
+

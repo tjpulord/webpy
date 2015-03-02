@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+    <link type="text/css" href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <script  type="text/javascript" src="/static/js/bootstrap.js"></script>
+</head>
+<body>
+<div class="span8">
+      <form class="form-horizontal">
+        <fieldset>
+          <div class="control-group">
+            <label class="control-label" for="focusedInput">Focused input</label>
+            <div class="controls">
+              <input class="input-xlarge focused" id="focusedInput" type="text" value="This is focused…">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Uneditable input</label>
+            <div class="controls">
+              <span class="input-xlarge uneditable-input">Some value here</span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="disabledInput">Disabled input</label>
+            <div class="controls">
+              <input class="input-xlarge disabled" id="disabledInput" type="text" placeholder="Disabled input here…" disabled>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="optionsCheckbox2">Disabled checkbox</label>
+            <div class="controls">
+              <label class="checkbox">
+                <input type="checkbox" id="optionsCheckbox2" value="option1" disabled>
+                This is a disabled checkbox
+              </label>
+            </div>
+          </div>
+          <div class="control-group warning">
+            <label class="control-label" for="inputWarning">Input with warning</label>
+            <div class="controls">
+              <input type="text" id="inputWarning">
+              <span class="help-inline">Something may have gone wrong</span>
+            </div>
+          </div>
+          <div class="control-group error">
+            <label class="control-label" for="inputError">Input with error</label>
+            <div class="controls">
+              <input type="text" id="inputError">
+              <span class="help-inline">Please correct the error</span>
+            </div>
+          </div>
+          <div class="control-group success">
+            <label class="control-label" for="inputSuccess">Input with success</label>
+            <div class="controls">
+              <input type="text" id="inputSuccess">
+              <span class="help-inline">Woohoo!</span>
+            </div>
+          </div>
+          <div class="control-group success">
+            <label class="control-label" for="selectError">Select with success</label>
+            <div class="controls">
+              <select id="selectError">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <span class="help-inline">Woohoo!</span>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button class="btn">Cancel</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Button</th>
+        <th>class=""</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><button class="btn" href="#">Default</button></td>
+        <td><code>btn</code></td>
+        <td>Standard gray button with gradient</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-primary" href="#">Primary</button></td>
+        <td><code>btn btn-primary</code></td>
+        <td>Provides extra visual weight and identifies the primary action in a set of buttons</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-info" href="#">Info</button></td>
+        <td><code>btn btn-info</code></td>
+        <td>Used as an alternative to the default styles</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-success" href="#">Success</button></td>
+        <td><code>btn btn-success</code></td>
+        <td>Indicates a successful or positive action</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-warning" href="#">Warning</button></td>
+        <td><code>btn btn-warning</code></td>
+        <td>Indicates caution should be taken with this action</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-danger" href="#">Danger</button></td>
+        <td><code>btn btn-danger</code></td>
+        <td>Indicates a dangerous or potentially negative action</td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-inverse" href="#">Inverse</button></td>
+        <td><code>btn btn-inverse</code></td>
+        <td>Alternate dark gray button, not tied to a semantic action or use</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

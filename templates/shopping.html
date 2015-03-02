@@ -1,0 +1,78 @@
+$def with (param)
+$var title: $param.title
+
+
+<div class="container-fluid">
+<div class="row-fluid">
+  <div class="span2">
+    <img src="static/img/slide/logo.jpg" width="200" height="100">
+  </div>
+
+  <div class="span10">
+    <ul class="nav nav-tabs">
+      <li><a href="/">首页</a></li>
+      <li><a href="/mymess">我的消息</a></li>
+      <li class="active"><a href="/shopping">购物车</a></li>
+      <li><a href="/order">我的订单</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">$context.username<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">我的消息</a></li>
+          <li><a href="#">我的优惠</a></li>
+          <li><a href="#">我的资料</a></li>
+        </ul>
+      </li>
+      <li><a href="/logout">退出</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row-fluid">
+  $if param.error_msg:
+    <div class="bs-docs-example">
+      <div class="alert alert-error">
+        <strong>$:param.error_msg</strong>
+      </div>
+    </div>
+  $else:
+    <div class="span6 offset1">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>菜名</th>
+              <th>单价</th>
+              <th>份数</th>
+            </tr>
+          </thead>
+          <tbody>
+            $for r in param.dish_list:
+              <tr>
+                <td><h5>$r.dish_name</h5></td>
+                <td>¥$r.price</td>
+                <td>
+                    <div class="row-fluid">
+                      <div class="span2">
+                        <a href="/minusmenu/$r.nid" class="inline"><i class="icon-minus-sign"></i></a>
+                      </div>
+                    <div class="span2"><p>$context.order_dict[r.nid]</p></div>
+                    <div class="span2">
+                      <a href="/addmenu/$r.nid"><i class="icon-plus-sign"></i></a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <tr>
+              <td><h5>总计:</h5></td>
+              <td colspan="2">¥$context.total_price</td>
+            </tr>
+            $if context.total_price:
+              <tr>
+                <td><a class="btn" role="button" href="/order">提交订单</a></td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+$def with (title, error_msg)
+$if title is None:
+    $var title: '上传'
+$else:
+    $var title: $title
+
+<div class="row-fluid">
+  <div class="span2">
+    <img src="static/img/slide/logo.jpg" width="200" height="100">
+  </div>
+
+  <div class="span10">
+    <ul class="nav nav-tabs">
+      <li><a href="/">首页</a></li>
+      <li class="active"><a href="/upload">添加菜单</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">$context.username<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">菜单统计</a></li>
+          <li><a href="#">用户统计</a></li>
+          <li><a href="#">流量查询</a></li>
+        </ul>
+      </li>
+      <li><a href="/logout">退出</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="span10 offset1">
+
+<form class="bs-docs-example form-horizontal" action="upload" method="POST" enctype="multipart/form-data">
+    $if error_msg:
+        <div class="bs-docs-example">
+            <div class="alert alert-error">
+                <strong>$error_msg</strong>
+            </div>
+        </div>
+    <div class="control-group">
+      <label for="dishname" class="control-label">菜名</label>
+      <div class="controls">
+        <input type="text" name="dishname" />
+      </div>
+    </div>
+    <div class="control-group">
+      <label for="price" class="control-label">菜价</label>
+      <div class="controls">
+        <input type="text" name="price" />
+      </div>
+    </div>
+    <div class="control-group">
+      <label for="maketime" class="control-label">制作时间</label>
+      <div class="controls">
+        <input type="text" name="maketime" />
+      </div>
+    </div>
+    <div class="control-group">
+      <label for="image" class="control-label">上传图片</label>
+      <div class="controls">
+        <input type="file" name="image" />
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <label class="checkbox inline">
+          <input type="checkbox" name="category_2" value='2' > 快餐
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" name="category_4" value='4' > 中餐
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" name="category_8" value='8' > 西餐
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" name="category_16" value='16' > 料理
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" name="category_32" value='32' > 糕点
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" name="category_64" value='64' > 汤类
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" name="category_128" value='128' > 面食
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" name="category_1024" value='1024' > 饮品
+        </label>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <button class="btn" type="submit">提交</button>
+      </div>
+    </div>
+ </form>
+</div>
