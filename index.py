@@ -118,13 +118,15 @@ class Upload():
             filepath = a.image.filename.replace('\\','/')
             fn = filepath.split('/')[-1]
             suffix=fn.split('.')[-1]
-            if suffix.lower() not in ('jpg', 'jpeg', 'gif', 'png'):
+            if fn and suffix.lower() not in ('jpg', 'jpeg', 'gif', 'png'):
                 raise ValueError, 'The upload file is not correct image'
-            #print filepath, fn, image_path
-            fout = open('%s/%s' % (image_path, fn), 'wb')
-            fout.write(a.image.file.read())
-            fout.flush()
-            fout.close()
+            elif fn:
+                fout = open('%s/%s' % (image_path, fn), 'wb')
+                fout.write(a.image.file.read())
+                fout.flush()
+                fout.close()
+            else:
+                fn=''
         except Exception,e:
             return render.upload('upload error', 'upload image failed: %s' % e)
         # compute the category value
@@ -155,11 +157,11 @@ class Delete:
         return web.seeother(referer)
 
 class Edit:
-    def GET(self, args):
+    def GET(self, nid):
         if session.login != 100:
             return web.seeother('/login')
-        if args:
-            dish = db.select(menu_table, where='nid=%d' % int(args))
+        if nid:
+            dish = db.select(menu_table, where='nid=%d' % int(nid))
         else:
             dish = db.select(menu_table)
 
@@ -169,30 +171,47 @@ class Edit:
         param.menu_sort_list = [(r.category, r.category_id) for r in db.select(menu_sort_table)]
         return render.edit(param)
 
-    def POST(self, args):
+    def POST(self, nid):
         param = content(title='Edit - error')
         try:
-            args=int(args)
-            if args <= 0:
+            nid=int(nid)
+            if nid <= 0:
                 raise
         except:
-            param.error_msg = '%s is not correct' % args
+            param.error_msg = '%s is not correct' % nid
             return render.edit(param)
 
-        a=web.input()
+        a = web.input(image={})
         int_list = ['price', 'make_time']
-        vars = {}
-        category_id = 0
+        args = {}
+        category_id = 1
         for ks in a.keys():
             if ks in int_list:
-                vars[ks] = int(a[ks])
+                args[ks] = int(a[ks])
             elif ks.startswith('category_'):
                 category_id |= int(a[ks])
             elif a[ks]:
-                vars[ks] = a[ks]
-        vars['category_id'] = category_id
+                args[ks] = a[ks]
+        args['category_id'] = category_id
+        # upload the image file
         try:
-            db.update(menu_table, where='nid=%d'%args, **vars)
+            filepath = a.image.filename.replace('\\','/')
+            fn = filepath.split('/')[-1]
+            suffix=fn.split('.')[-1]
+            if fn and suffix.lower() not in ('jpg', 'jpeg', 'gif', 'png'):
+                raise ValueError, 'The upload file is not correct image'
+            #print filepath, fn, image_path
+            elif fn:
+                fout = open('%s/%s' % (image_path, fn), 'wb')
+                fout.write(a.image.file.read())
+                fout.flush()
+                fout.close()
+                args['image']=fn
+        except Exception,e:
+            param.error_msg = 'upload image error: %s' % e
+            return render.edit(param)
+        try:
+            db.update(menu_table, where='nid=%d'%nid, **args)
         except Exception, e:
             param.error_msg = 'database error: %s' % e
             return render.edit(param)
@@ -287,6 +306,10 @@ class Order:
         if not session.login:
             return web.seeother('/login')
         return render.order(param)
+
+class Contact:
+    def GET(self):
+        return render.contactus(content(title='联系我们'))
 
 if __name__ == '__main__':
 

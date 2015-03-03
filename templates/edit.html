@@ -12,7 +12,7 @@ $if param.error_msg:
 
 $if len(param.dish_list) == 1:
   <div class="span8 offset2">
-  <form class="bs-docs-example form-horizontal" action="/edit/$param.dish_list[0].nid" method="POST">
+  <form class="bs-docs-example form-horizontal" action="/edit/$param.dish_list[0].nid" method="POST" enctype="multipart/form-data">
     <div class="control-group">
       <label for="dish_name" class="control-label">菜名</label>
       <div class="controls">
